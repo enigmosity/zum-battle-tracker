@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using ZumBattleTracker;
 using ZumBattleTracker.Helpers;
 using ZumBattleTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -13,6 +17,11 @@ builder.Services.AddTransient<PokemonService>();
 builder.Services.AddTransient<Random>();
 builder.Services.AddTransient<IBattleHelper, BattleHelper>();
 builder.Services.AddTransient<TournamentHelper>();
+
+builder.Services.AddDbContext<PokemonContext>(options =>
+				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 
 var app = builder.Build();
