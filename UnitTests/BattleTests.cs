@@ -23,7 +23,7 @@ namespace UnitTests
 			water.Type = "water";
 			var result = _battleHelper.Battle(water, fire);
 
-			Assert.AreEqual(water, result);
+			Assert.AreEqual((water, fire, 0), result);
 		}
 
 		[Test]
@@ -36,11 +36,11 @@ namespace UnitTests
 			water.Type = "water";
 			var result = _battleHelper.Battle(fire, water);
 
-			Assert.AreEqual(water, result);
+			Assert.AreEqual((fire, water, 1), result);
 		}
 
 		[Test]
-		public void GivenNoTypeWinner_ReturnFighter1_WithHigherBaseExp()
+		public void GivenNoTypeWinner_ReturnFighter2_WithHigherBaseExp()
 		{
 			// need to set up a pokemon
 			var fire = new Pokemon();
@@ -51,11 +51,11 @@ namespace UnitTests
 			electric.BaseExperience = 20;
 			var result = _battleHelper.Battle(fire, electric);
 
-			Assert.AreEqual(electric, result);
+			Assert.AreEqual((fire, electric, 1), result);
 		}
 
 		[Test]
-		public void GivenNoTypeWinner_ReturnFighter2_WithHigherBaseExp()
+		public void GivenNoTypeWinner_ReturnFighter1_WithHigherBaseExp()
 		{
 			// need to set up a pokemon
 			var fire = new Pokemon();
@@ -66,7 +66,7 @@ namespace UnitTests
 			electric.BaseExperience = 20;
 			var result = _battleHelper.Battle(fire, electric);
 
-			Assert.AreEqual(fire, result);
+			Assert.AreEqual((fire, electric, 0), result);
 		}
 
 		[Test]
@@ -81,7 +81,7 @@ namespace UnitTests
 			electric.BaseExperience = 20;
 			var result = _battleHelper.Battle(fire, electric);
 
-			Assert.That(result.Id, Is.EqualTo(new Pokemon().Id));
+			Assert.That(result.Item3, Is.EqualTo(-1));
 		}
 
 	}

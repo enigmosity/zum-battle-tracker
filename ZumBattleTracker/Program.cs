@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<PokemonService>();
 builder.Services.AddTransient<Random>();
+builder.Services.AddTransient<BattleHelper>();
 
 
 var app = builder.Build();
