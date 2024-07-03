@@ -17,5 +17,7 @@
 			{ "fighting", "dark" },
 			{ "dark", "ghost" }
 		};
+
+		public static readonly List<string> SortOrders = new List<string>() { "wins", "losses", "id", "name", "ties" };
 	}
 }

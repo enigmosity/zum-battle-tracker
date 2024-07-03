@@ -21,10 +21,16 @@ namespace ZumBattleTracker.Controllers
 			}
 			
 			// ensure this is the correct get - check how it impacts routing and naming scheme for API calls
-			[HttpGet(Name = "GetPokemon")]
-			[Route("/pokemon/tournament/statistics")]
-			public async Task<IEnumerable<PokemonModel>> Get()
+			[HttpGet]
+			[Route("/pokemon/tournament/statistics/{sortBy}")]
+			//[Route("Home/Index/{id?}")]
+			public async Task<IEnumerable<PokemonModel>> Get(string sortBy)
 			{
+				if (string.IsNullOrEmpty(sortBy) || !Constants.SortOrders.Contains(sortBy))
+				{
+					// TODO: return the correct response for a bad sort order, rather than an exception
+					throw new Exception();
+				}
 				var pokemon = await _pokemonService.GetPokemon();
 				if (pokemon == null)
 				{
@@ -34,7 +40,11 @@ namespace ZumBattleTracker.Controllers
 				var tournamentResults = _tournamentHelper.BeginTournament(pokemon);
 				var processedResults = _tournamentHelper.TournamentResultProcesser(tournamentResults);
 
-				return processedResults.Values.ToList();
+				var sortedResults = processedResults.Values.ToList();
+				sortedResults.Sort("wins");
+
+				return sortedResults;
+
 			}
 		}
 }
