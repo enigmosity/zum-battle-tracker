@@ -22,6 +22,7 @@ namespace ZumBattleTracker.Controllers
 			
 			// ensure this is the correct get - check how it impacts routing and naming scheme for API calls
 			[HttpGet(Name = "GetPokemon")]
+			[Route("/pokemon/tournament/statistics")]
 			public async Task<IEnumerable<PokemonModel>> Get()
 			{
 				var pokemon = await _pokemonService.GetPokemon();
