@@ -27,7 +27,7 @@
 
 			try
 			{
-				using HttpResponseMessage response = await httpClient.GetAsync(Constants.PokeApiEndpoint);
+				using HttpResponseMessage response = await httpClient.GetAsync($"{Constants.PokeApiEndpoint}{id}");
 				response.EnsureSuccessStatusCode();
 				var responseBody = await response.Content.ReadFromJsonAsync<Pokemon>();
 				// Above three lines can be replaced with new helper method below
