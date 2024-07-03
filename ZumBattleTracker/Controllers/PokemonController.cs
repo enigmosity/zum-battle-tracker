@@ -10,7 +10,7 @@ namespace ZumBattleTracker.Controllers
 		{
 			private readonly ILogger<PokemonController> _logger;
 			private readonly PokemonService _pokemonService;
-		private readonly TournamentHelper _tournamentHelper;
+			private readonly TournamentHelper _tournamentHelper;
 
 			public PokemonController(ILogger<PokemonController> logger, PokemonService pokeService, TournamentHelper tournamentHelper)
 			{
@@ -21,13 +21,17 @@ namespace ZumBattleTracker.Controllers
 			
 			[HttpGet]
 			[Route("/pokemon/tournament/statistics/")]
-			public async Task<IEnumerable<PokemonModel>> Get(string sortBy, string sortDirection = Constants.SortDirectionDescending)
+			public async Task<IActionResult> Get(string sortBy, string? sortDirection = Constants.SortDirectionDescending)
 			{
 				if (string.IsNullOrEmpty(sortBy) || !Constants.SortOrders.Contains(sortBy))
 				{
-					// TODO: return the correct response for a bad sort order, rather than an exception
-					throw new Exception();
+					return Content("sortBy parameter is invalid");
 				}
+
+				if (sortDirection != Constants.SortDirectionDescending && sortDirection != Constants.SortDirectionAscending) {
+					return Content("sortDirection parameter is invalid");
+				}
+
 				var pokemon = await _pokemonService.GetPokemon();
 				if (pokemon == null)
 				{
@@ -39,7 +43,7 @@ namespace ZumBattleTracker.Controllers
 
 				var sortedResults = processedResults.Values.ToList();
 
-				return sortedResults.Sort(sortBy, sortDirection);
+				return Ok(sortedResults.Sort(sortBy, sortDirection));
 			}
 		}
 }
