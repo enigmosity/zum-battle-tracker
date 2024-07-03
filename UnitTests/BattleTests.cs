@@ -25,5 +25,18 @@ namespace UnitTests
 
 			Assert.AreEqual(water, result);
 		}
+
+		[Test]
+		public void GivenFirePokemon1_WaterPokemon2_WaterWins()
+		{
+			// need to set up a pokemon
+			var fire = new Pokemon();
+			fire.Type = "fire";
+			var water = new Pokemon();
+			water.Type = "water";
+			var result = _battleHelper.Battle(fire, water);
+
+			Assert.AreEqual(water, result);
+		}
 	}
 }
