@@ -2,23 +2,31 @@
 {
 	public class PokemonService
 	{
-		public PokemonService() { }
+		public PokemonService(Random random) 
+		{
+			_randomService = random;
+		}
 
 		private readonly HttpClient httpClient = new HttpClient();
+		private readonly Random _randomService;
 
 
-		public async void GetPokemon()
+
+
+		public async Task<List<Pokemon>> GetPokemon()
 		{
 			// generate 8 ids from 1 - 151 
 
-			var ids = new List<int>() { 1,2,3,4,5,6,7,8 };
+			var pokemonList = new List<Pokemon>();
 
-			// retrieve 8 pokemon
-
-			foreach(int id in ids) 
+			while (pokemonList.Count < 8)
 			{
+				var id = _randomService.Next(Constants.LowestPokemonId, Constants.HighestPokemonId);
 				var pokemon = await GetSinglePokemon(id);
+				pokemonList.Add(pokemon);
 			}
+
+			return pokemonList;
 		}
 
 		public async Task<Pokemon> GetSinglePokemon(int id)
@@ -43,7 +51,7 @@
 				Console.WriteLine("\nException Caught!");
 				Console.WriteLine("Message :{0} ", e.Message);
 			}
-			// TODO :come back and tidy this up
+			// TODO: come back and tidy this up
 			return null;
 
 		}

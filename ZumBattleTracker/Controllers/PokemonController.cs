@@ -23,14 +23,14 @@ namespace ZumBattleTracker.Controllers
 			
 			// ensure this is the correct get - check how it impacts routing and naming scheme for API calls
 			[HttpGet(Name = "GetPokemon")]
-			public async Task<IEnumerable<string>> Get()
+			public async Task<IEnumerable<Pokemon>> Get()
 			{
-				var pokemon = await _pokemonService.GetSinglePokemon(4);
+				var pokemon = await _pokemonService.GetPokemon();
 				if (pokemon == null)
 				{
-					return new List<string>();
+					return new List<Pokemon>();
 				}
-				return new List<string> { pokemon.ToString() };
+				return pokemon;
 			}
 		}
 }
