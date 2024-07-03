@@ -23,6 +23,7 @@
 			{
 				var id = _randomService.Next(Constants.LowestPokemonId, Constants.HighestPokemonId);
 				var pokemon = await GetSinglePokemon(id);
+				pokemon.SetType();
 				pokemonList.Add(pokemon);
 			}
 

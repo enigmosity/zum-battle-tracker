@@ -7,11 +7,6 @@ namespace ZumBattleTracker.Controllers
 		[Route("[controller]")]
 		public class PokemonController : ControllerBase
 		{
-			private static readonly string[] Pokemon = new[]
-			{
-				"Ratata", "Pikachu", "Squirtle", "Pokemon1", "Mild", "Warm", "Balmy", "Hot"
-			};
-
 			private readonly ILogger<PokemonController> _logger;
 			private readonly PokemonService _pokemonService;
 
