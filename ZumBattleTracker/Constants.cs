@@ -19,5 +19,6 @@
 		};
 
 		public static readonly List<string> SortOrders = new List<string>() { "wins", "losses", "id", "name", "ties" };
+		public static readonly List<string> SortDirection = new List<string>() { "asc", "desc" };
 	}
 }

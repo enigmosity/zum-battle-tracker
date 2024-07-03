@@ -20,7 +20,6 @@ namespace ZumBattleTracker.Controllers
 				_tournamentHelper = tournamentHelper;
 			}
 			
-			// ensure this is the correct get - check how it impacts routing and naming scheme for API calls
 			[HttpGet]
 			[Route("/pokemon/tournament/statistics/{sortBy}")]
 			//[Route("Home/Index/{id?}")]
@@ -41,10 +40,9 @@ namespace ZumBattleTracker.Controllers
 				var processedResults = _tournamentHelper.TournamentResultProcesser(tournamentResults);
 
 				var sortedResults = processedResults.Values.ToList();
-				sortedResults.Sort("wins");
+				sortedResults.Sort(sortBy);
 
 				return sortedResults;
-
 			}
 		}
 }
