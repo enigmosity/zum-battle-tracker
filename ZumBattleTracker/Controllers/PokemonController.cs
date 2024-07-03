@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
 using ZumBattleTracker.Helpers;
 using ZumBattleTracker.Services;
 
@@ -21,9 +20,8 @@ namespace ZumBattleTracker.Controllers
 			}
 			
 			[HttpGet]
-			[Route("/pokemon/tournament/statistics/{sortBy}")]
-			//[Route("Home/Index/{id?}")]
-			public async Task<IEnumerable<PokemonModel>> Get(string sortBy)
+			[Route("/pokemon/tournament/statistics/")]
+			public async Task<IEnumerable<PokemonModel>> Get(string sortBy, string sortDirection = Constants.SortDirectionDescending)
 			{
 				if (string.IsNullOrEmpty(sortBy) || !Constants.SortOrders.Contains(sortBy))
 				{
@@ -40,9 +38,8 @@ namespace ZumBattleTracker.Controllers
 				var processedResults = _tournamentHelper.TournamentResultProcesser(tournamentResults);
 
 				var sortedResults = processedResults.Values.ToList();
-				sortedResults.Sort(sortBy);
 
-				return sortedResults;
+				return sortedResults.Sort(sortBy, sortDirection);
 			}
 		}
 }

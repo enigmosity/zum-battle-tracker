@@ -19,6 +19,7 @@
 		};
 
 		public static readonly List<string> SortOrders = new List<string>() { "wins", "losses", "id", "name", "ties" };
-		public static readonly List<string> SortDirection = new List<string>() { "asc", "desc" };
+		public const string SortDirectionAscending = "asc";
+		public const string SortDirectionDescending = "desc";
 	}
 }

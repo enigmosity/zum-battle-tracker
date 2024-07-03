@@ -3,22 +3,54 @@
 
 	public static class SortExtensions
 	{
-		public static void Sort(this List<PokemonModel> pokemon, string sort)
+		public static IEnumerable<PokemonModel> Sort(this List<PokemonModel> pokemon, string sort, string sortDirection)
 		{
-			if (sort == "wins")
+			if (sortDirection == Constants.SortDirectionAscending)
 			{
-				pokemon.Sort((x, y) => x.Wins.CompareTo(y.Wins));
-			} else if (sort == "losses") {
-				pokemon.Sort((x, y) => x.Losses.CompareTo(y.Losses));
-			} else if (sort == "ties")
+				if (sort == "wins")
+				{
+					return pokemon.OrderBy(x => x.Wins);
+				}
+				else if (sort == "losses")
+				{
+					return pokemon.OrderBy(x => x.Losses);
+				}
+				else if (sort == "ties")
+				{
+					return pokemon.OrderBy(x => x.Ties);
+				}
+				else if (sort == "name")
+				{
+					return pokemon.OrderBy(x => x.Name);
+				}
+				else
+				{
+					return pokemon.OrderBy(x => x.Id);
+				}
+			}
+			else
 			{
-				pokemon.Sort((x, y) => x.Ties.CompareTo(y.Ties));
-			} else if (sort == "name")
-			{
-				pokemon.Sort((x, y) => x.Name.CompareTo(y.Name));
-			} else
-			{
-				pokemon.Sort((x, y) => x.Id.CompareTo(y.Id));
+
+				if (sort == "wins")
+				{
+					return pokemon.OrderByDescending(x => x.Wins);
+				}
+				else if (sort == "losses")
+				{
+					return pokemon.OrderByDescending(x => x.Losses);
+				}
+				else if (sort == "ties")
+				{
+					return pokemon.OrderByDescending(x => x.Ties);
+				}
+				else if (sort == "name")
+				{
+					return pokemon.OrderByDescending(x => x.Name);
+				}
+				else
+				{
+					return pokemon.OrderByDescending(x => x.Id);
+				}
 			}
 		}
 	}
