@@ -38,5 +38,51 @@ namespace UnitTests
 
 			Assert.AreEqual(water, result);
 		}
+
+		[Test]
+		public void GivenNoTypeWinner_ReturnFighter1_WithHigherBaseExp()
+		{
+			// need to set up a pokemon
+			var fire = new Pokemon();
+			fire.Type = "fire";
+			fire.BaseExperience = 10;
+			var electric = new Pokemon();
+			electric.Type = "electric";
+			electric.BaseExperience = 20;
+			var result = _battleHelper.Battle(fire, electric);
+
+			Assert.AreEqual(electric, result);
+		}
+
+		[Test]
+		public void GivenNoTypeWinner_ReturnFighter2_WithHigherBaseExp()
+		{
+			// need to set up a pokemon
+			var fire = new Pokemon();
+			fire.Type = "fire";
+			fire.BaseExperience = 80;
+			var electric = new Pokemon();
+			electric.Type = "electric";
+			electric.BaseExperience = 20;
+			var result = _battleHelper.Battle(fire, electric);
+
+			Assert.AreEqual(fire, result);
+		}
+
+		[Test]
+		public void GivenNoTypeWinnerAndNoBaseExpWinner_ReturnEmptyPokemon()
+		{
+			// need to set up a pokemon
+			var fire = new Pokemon();
+			fire.Type = "fire";
+			fire.BaseExperience = 20;
+			var electric = new Pokemon();
+			electric.Type = "electric";
+			electric.BaseExperience = 20;
+			var result = _battleHelper.Battle(fire, electric);
+
+			Assert.That(result.Id, Is.EqualTo(new Pokemon().Id));
+		}
+
 	}
 }
