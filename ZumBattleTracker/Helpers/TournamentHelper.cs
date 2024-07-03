@@ -33,10 +33,11 @@ namespace ZumBattleTracker.Helpers
         {
             var processedResults = new Dictionary<int, PokemonModel>();
 
-			PokemonModel pokemon1;
-			PokemonModel pokemon2;
 			foreach (var result in results)
             {
+				PokemonModel pokemon1;
+				PokemonModel pokemon2;
+
 				// process the first fighter
 				if (processedResults.ContainsKey(result.Item1.Id))
 				{
