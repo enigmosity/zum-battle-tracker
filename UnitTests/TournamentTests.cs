@@ -3,6 +3,7 @@ using ZumBattleTracker.Helpers;
 using ZumBattleTracker.Services;
 using Moq;
 using Moq.Protected;
+using ZumBattleTracker;
 
 
 namespace UnitTests
@@ -22,8 +23,9 @@ namespace UnitTests
 				PokemonBuilder("water", 2), PokemonBuilder("water", 2) };
 
 			var mockBattleHelper = new Mock<IBattleHelper>();
+			var mockPokemonRepositry = new Mock<PokemonRepository>();
 			mockBattleHelper.Setup(m => m.Battle(It.IsAny<Pokemon>(), It.IsAny<Pokemon>())).Returns((poke1, poke1, 1));
-			var tournamentHelper = new TournamentHelper(mockBattleHelper.Object);
+			var tournamentHelper = new TournamentHelper(mockBattleHelper.Object, mockPokemonRepositry.Object);
 
 			var results = tournamentHelper.BeginTournament(fighters);
 

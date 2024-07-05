@@ -1,4 +1,6 @@
-﻿using ZumBattleTracker.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ZumBattleTracker.Services;
 
 namespace ZumBattleTracker
 {
@@ -10,7 +12,8 @@ namespace ZumBattleTracker
 			Name = pokemon.Name;
         }
 		public PokemonModel() { }
-
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public int Wins { get; set; }

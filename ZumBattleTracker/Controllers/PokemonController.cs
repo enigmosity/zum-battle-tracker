@@ -11,12 +11,14 @@ namespace ZumBattleTracker.Controllers
 			private readonly ILogger<PokemonController> _logger;
 			private readonly PokemonService _pokemonService;
 			private readonly TournamentHelper _tournamentHelper;
+			private readonly PokemonRepository _pokemonRepository;
 
-			public PokemonController(ILogger<PokemonController> logger, PokemonService pokeService, TournamentHelper tournamentHelper)
+			public PokemonController(ILogger<PokemonController> logger, PokemonService pokeService, TournamentHelper tournamentHelper, PokemonRepository pokemonRepository)
 			{
 				_logger = logger;
 				_pokemonService = pokeService;
 				_tournamentHelper = tournamentHelper;
+				_pokemonRepository = pokemonRepository;
 			}
 			
 			[HttpGet]
@@ -40,6 +42,8 @@ namespace ZumBattleTracker.Controllers
 
 				var tournamentResults = _tournamentHelper.BeginTournament(pokemon);
 				var processedResults = _tournamentHelper.TournamentResultProcesser(tournamentResults);
+
+				await _tournamentHelper.RecordTournamentResults(processedResults);
 
 				var sortedResults = processedResults.Values.ToList();
 

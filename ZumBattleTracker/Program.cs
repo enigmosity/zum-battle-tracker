@@ -17,6 +17,7 @@ builder.Services.AddTransient<PokemonService>();
 builder.Services.AddTransient<Random>();
 builder.Services.AddTransient<IBattleHelper, BattleHelper>();
 builder.Services.AddTransient<TournamentHelper>();
+builder.Services.AddTransient<PokemonRepository>();
 
 builder.Services.AddDbContext<PokemonContext>(options =>
 				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

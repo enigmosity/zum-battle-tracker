@@ -5,9 +5,11 @@ namespace ZumBattleTracker.Helpers
 	public class TournamentHelper
 	{
         private readonly IBattleHelper _battleHelper;
-        public TournamentHelper(IBattleHelper battleHelper)
+        private readonly PokemonRepository _pokemonRepository;
+        public TournamentHelper(IBattleHelper battleHelper, PokemonRepository pokemonRepository)
         {
             _battleHelper = battleHelper;
+			_pokemonRepository = pokemonRepository;
         }
 
         public List<(Pokemon, Pokemon, int)> BeginTournament(List<Pokemon> pokemons)
@@ -68,7 +70,12 @@ namespace ZumBattleTracker.Helpers
 			return processedResults;
 		}
 
-        private PokemonModel DetermineResult(PokemonModel pokemon, int result, int position)
+		public async Task RecordTournamentResults(Dictionary<int, PokemonModel> processedResults)
+		{
+			await _pokemonRepository.RecordTournamentResults(processedResults.Values.ToList());
+		}
+
+		private PokemonModel DetermineResult(PokemonModel pokemon, int result, int position)
         {
 
 			if (result == position)

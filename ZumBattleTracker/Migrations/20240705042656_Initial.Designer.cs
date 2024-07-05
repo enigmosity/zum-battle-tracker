@@ -11,8 +11,8 @@ using ZumBattleTracker;
 namespace ZumBattleTracker.Migrations
 {
     [DbContext(typeof(PokemonContext))]
-    [Migration("20240703172121_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240705042656_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,10 +26,7 @@ namespace ZumBattleTracker.Migrations
             modelBuilder.Entity("ZumBattleTracker.PokemonModel", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Losses")
                         .HasColumnType("int");
