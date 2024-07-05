@@ -5,8 +5,8 @@ namespace ZumBattleTracker.Helpers
 	public class TournamentHelper
 	{
         private readonly IBattleHelper _battleHelper;
-        private readonly PokemonRepository _pokemonRepository;
-        public TournamentHelper(IBattleHelper battleHelper, PokemonRepository pokemonRepository)
+        private readonly IRepository _pokemonRepository;
+        public TournamentHelper(IBattleHelper battleHelper, IRepository pokemonRepository)
         {
             _battleHelper = battleHelper;
 			_pokemonRepository = pokemonRepository;
@@ -18,11 +18,10 @@ namespace ZumBattleTracker.Helpers
             var results = new List<(Pokemon, Pokemon, int)> ();
             foreach (var pokemon in pokemons)
             {
-                foreach (var nextPokemon in pokemons) {
+                foreach (var nextPokemon in pokemonStillToFight) {
                     if (nextPokemon != pokemon)
                     {
                         results.Add(_battleHelper.Battle(pokemon, nextPokemon));
-
                     }
                 }
                 pokemonStillToFight.Remove(pokemon);

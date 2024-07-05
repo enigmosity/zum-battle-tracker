@@ -2,7 +2,10 @@
 
 namespace ZumBattleTracker
 {
-	public class PokemonRepository
+	public interface IRepository {
+		public Task RecordTournamentResults(List<PokemonModel> processedResults);
+	}
+	public class PokemonRepository : IRepository
 	{
 		public PokemonRepository(PokemonContext context) {
 			_pokemonContext = context;

@@ -11,9 +11,9 @@ namespace ZumBattleTracker.Controllers
 			private readonly ILogger<PokemonController> _logger;
 			private readonly PokemonService _pokemonService;
 			private readonly TournamentHelper _tournamentHelper;
-			private readonly PokemonRepository _pokemonRepository;
+			private readonly IRepository _pokemonRepository;
 
-			public PokemonController(ILogger<PokemonController> logger, PokemonService pokeService, TournamentHelper tournamentHelper, PokemonRepository pokemonRepository)
+			public PokemonController(ILogger<PokemonController> logger, PokemonService pokeService, TournamentHelper tournamentHelper, IRepository pokemonRepository)
 			{
 				_logger = logger;
 				_pokemonService = pokeService;
